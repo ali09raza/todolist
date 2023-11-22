@@ -1,0 +1,47 @@
+.main-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+    h1 {
+      text-align: center;
+    }
+  
+    .input-container {
+      display: flex;
+      margin-bottom: 10px;
+  
+      input {
+        flex: 1;
+        padding: 8px;
+        margin-right: 10px;
+      }
+  
+      button {
+        padding: 8px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  
+    ul {
+      list-style: none;
+      padding: 0;
+  
+      li {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px;
+        border: 1px solid #ddd;
+        margin-bottom: 5px;
+  
+        span {
+          color: #ff0000;
+          cursor: pointer;
+        }
+      }
+    }
+  }

@@ -1,0 +1,10 @@
+@import '../color.scss';
+.task-input {
+	flex: 1;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	font-size: 14px;
+	outline: none;
+}
