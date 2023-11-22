@@ -1,11 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import AddButton from "../AddButton";
 
-import './Input.scss'
+import "./addTask.scss";
 
-const AddTask=()=>{
-    return(<>
-    <input type="text" class="task-input" placeholder="Enter task..."/>
+const AddTask = ({ task, onAdd }) => {
+  const [inputValue, setInputValue] = useState("");
 
-    </>);
+  useEffect(() => {
+    setInputValue(task);
+  }, [task]);
+
+  const handleInputValueChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleAddTask = () => {
+    if (inputValue?.trim()) {
+      onAdd(inputValue);
+      setInputValue("");
+    }
+  };
+
+  return (
+    <div className="container">
+      <input
+        type="text"
+        value={inputValue}
+        onChange={handleInputValueChange}
+        placeholder="Enter task..."
+      />
+      <AddButton onClick={handleAddTask} />
+    </div>
+  );
 };
 export default AddTask;

@@ -1,12 +1,13 @@
 import React from "react";
-import './Button.scss'
+import { ReactComponent as AddIcon } from "../../assets/icons/plus-icon.svg";
+import "./addButton.scss";
 
-const Button = ({ onClick }) => {
+const AddButton = ({ onClick }) => {
   return (
     <button className="add-btn" onClick={onClick}>
-      ADD
+      ADD <AddIcon />
     </button>
   );
 };
 
-export default Button;
+export default AddButton;

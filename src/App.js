@@ -1,10 +1,10 @@
-import React from 'react';
-import Main1 from './Components/Main/Main1';
+import React from "react";
+import TaskList from "./Components/TaskList";
 
 function App() {
   return (
     <div className="App">
-      <Main1 />
+      <TaskList />
     </div>
   );
 }
