@@ -1,22 +1,24 @@
 import React, { useState } from "react";
-import "./taskList.scss";
 import AddTask from "../AddTask";
-
+import ListItem from "../ListItem";
+import "./taskList.scss";
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
   const [editTask, setEditTask] = useState({
-    value: "",
+    heading: "",
+    description: "",
     index: null,
   });
 
   const addTask = (task) => {
-    if (editTask?.index) {
-      const prevousTasks = [...tasks];
-      prevousTasks[editTask?.index] = task;
+    if (editTask.index !== null) {
+      const previousTasks = [...tasks];
+      previousTasks[editTask.index] = task;
 
-      setTasks(prevousTasks);
+      setTasks(previousTasks);
       setEditTask({
-        value: "",
+        heading: "",
+        description: "",
         index: null,
       });
     } else {
@@ -24,10 +26,11 @@ const TaskList = () => {
     }
   };
 
-  const handleEditTask = (task, index) => {
+  const handleEditTask = (task) => {
     setEditTask({
-      value: task,
-      index: index,
+      heading: task.heading,
+      description: task.description,
+      index: task?.index,
     });
   };
 
@@ -37,23 +40,24 @@ const TaskList = () => {
     setTasks(previousTask);
   };
 
+  console.log("Tasks", tasks);
+
   return (
     <div className="main-container">
       <h1>Todo List</h1>
-      <AddTask task={editTask?.value} onAdd={addTask} />
-      <ul>
-        {tasks.map((task, index) => (
-          <li key={index}>
-            {task}
-            <div className="action_container">
-              <span onClick={() => handleEditTask(task, index)}>Edit</span>
-              <span onClick={() => deleteTask(index)}>Delete</span>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <AddTask task={editTask} onAdd={addTask} />
+
+      {tasks.map((task, index) => (
+        <ListItem
+          key={index}
+          index={index}
+          heading={task?.heading}
+          description={task?.description}
+          onEdit={handleEditTask}
+          onDelete={deleteTask}
+        />
+      ))}
     </div>
   );
 };
-
 export default TaskList;

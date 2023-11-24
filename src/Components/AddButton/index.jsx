@@ -1,4 +1,3 @@
-import React from "react";
 import { ReactComponent as AddIcon } from "../../assets/icons/plus-icon.svg";
 import "./addButton.scss";
 
