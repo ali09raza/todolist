@@ -5,18 +5,20 @@ import AddTask from "../AddTask";
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
   const [editTask, setEditTask] = useState({
-    value: "",
+    heading: "",
+    description: "",
     index: null,
   });
 
   const addTask = (task) => {
-    if (editTask?.index) {
-      const prevousTasks = [...tasks];
-      prevousTasks[editTask?.index] = task;
+    if (editTask.index !== null) {
+      const previousTasks = [...tasks];
+      previousTasks[editTask.index] = task;
 
-      setTasks(prevousTasks);
+      setTasks(previousTasks);
       setEditTask({
-        value: "",
+        heading: "",
+        description: "",
         index: null,
       });
     } else {
@@ -26,7 +28,8 @@ const TaskList = () => {
 
   const handleEditTask = (task, index) => {
     setEditTask({
-      value: task,
+      heading: task.heading,
+      description: task.description,
       index: index,
     });
   };
@@ -40,11 +43,12 @@ const TaskList = () => {
   return (
     <div className="main-container">
       <h1>Todo List</h1>
-      <AddTask task={editTask?.value} onAdd={addTask} />
+      <AddTask task={editTask} onAdd={addTask} />
       <ul>
         {tasks.map((task, index) => (
           <li key={index}>
-            {task}
+            <strong>{task.heading}:</strong> {task.description}
+            {/* {task} */}
             <div className="action_container">
               <span onClick={() => handleEditTask(task, index)}>Edit</span>
               <span onClick={() => deleteTask(index)}>Delete</span>
@@ -55,5 +59,4 @@ const TaskList = () => {
     </div>
   );
 };
-
 export default TaskList;
