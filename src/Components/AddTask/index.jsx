@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AddButton from "../AddButton";
 
 import "./addTask.scss";
 
-const AddTask = ({ onAdd }) => {
+const AddTask = ({ task, onAdd }) => {
   const [inputValue, setInputValue] = useState("");
   const [descriptionValue, setDescriptionValue] = useState("");
-  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    if (task) {
+      setInputValue(task?.heading || "");
+      setDescriptionValue(task?.description || "");
+    }
+  }, [task]);
 
   const handleInputValueChange = (event) => {
     setInputValue(event.target.value);
@@ -22,7 +28,7 @@ const AddTask = ({ onAdd }) => {
         heading: inputValue,
         description: descriptionValue,
       };
-      setTasks([...tasks, newTask]);
+      onAdd(newTask);
       setInputValue("");
       setDescriptionValue("");
     }
@@ -30,40 +36,34 @@ const AddTask = ({ onAdd }) => {
 
   return (
     <div className="container">
-      <label htmlFor="input">Heading</label>
-      <input
-        type="text"
-        id="input"
-        value={inputValue}
-        onChange={handleInputValueChange}
-        placeholder="Enter task..."
-      />
-      
-      <label htmlFor="textArea">Description</label><br/>
-      <textarea
-        id="textArea"
-        name="description"
-        rows="4" cols="30"
-        value={descriptionValue}
-        onChange={handleDescriptionChange}
-        placeholder="Enter description..."
-      />
-      <AddButton onClick={handleAddTask} />
-     
-      {tasks.length > 0 && (
-        <ul>
-          {tasks.map((task, index) => (
-            <li key={index}>
-              <strong>{task.heading}:</strong> {task.description}
-              
-              
+      <div className="inputs-container">
+        <div className="input-container">
+          <label htmlFor="input">Heading</label>
+          <input
+            type="text"
+            id="input"
+            value={inputValue}
+            onChange={handleInputValueChange}
+            placeholder="Enter task..."
+          />
+        </div>
 
-              
-            </li>
-          ))}
-        </ul>
-      )}
-      
+        <div className="input-container">
+          <label htmlFor="textArea">Description</label>
+          <textarea
+            id="textArea"
+            name="description"
+            rows="4"
+            cols="30"
+            value={descriptionValue}
+            onChange={handleDescriptionChange}
+            placeholder="Enter description..."
+          />
+        </div>
+      </div>
+      <div className="btn-container">
+        <AddButton onClick={handleAddTask} />
+      </div>
     </div>
   );
 };

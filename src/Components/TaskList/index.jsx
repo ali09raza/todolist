@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./taskList.scss";
 import AddTask from "../AddTask";
-
+import ListItem from "../ListItem";
+import "./taskList.scss";
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
   const [editTask, setEditTask] = useState({
@@ -26,11 +26,11 @@ const TaskList = () => {
     }
   };
 
-  const handleEditTask = (task, index) => {
+  const handleEditTask = (task) => {
     setEditTask({
       heading: task.heading,
       description: task.description,
-      index: index,
+      index: task?.index,
     });
   };
 
@@ -40,22 +40,23 @@ const TaskList = () => {
     setTasks(previousTask);
   };
 
+  console.log("Tasks", tasks);
+
   return (
     <div className="main-container">
       <h1>Todo List</h1>
       <AddTask task={editTask} onAdd={addTask} />
-      <ul>
-        {tasks.map((task, index) => (
-          <li key={index}>
-            <strong>{task.heading}:</strong> {task.description}
-            {/* {task} */}
-            <div className="action_container">
-              <span onClick={() => handleEditTask(task, index)}>Edit</span>
-              <span onClick={() => deleteTask(index)}>Delete</span>
-            </div>
-          </li>
-        ))}
-      </ul>
+
+      {tasks.map((task, index) => (
+        <ListItem
+          key={index}
+          index={index}
+          heading={task?.heading}
+          description={task?.description}
+          onEdit={handleEditTask}
+          onDelete={deleteTask}
+        />
+      ))}
     </div>
   );
 };
